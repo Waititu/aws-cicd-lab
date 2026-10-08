@@ -15,6 +15,7 @@ env:
   ECR_REPOSITORY: aws-cicd-lab
   ECS_CLUSTER: aws-cicd-lab
   ECS_SERVICE: aws-cicd-lab-service
+  ECS_TASK_DEFINITION: aws-cicd-lab
 
 jobs:
   deploy:
@@ -67,7 +68,7 @@ jobs:
           IMAGE_TAG: ${{ github.sha }}
         run: |
           TASK_DEFINITION=$(aws ecs describe-task-definition \
-            --task-definition "${ECS_SERVICE}" \
+            --task-definition "${ECS_TASK_DEFINITION}" \
             --query 'taskDefinition' \
             --output json)
 
