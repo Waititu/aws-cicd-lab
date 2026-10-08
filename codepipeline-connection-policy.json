@@ -1,0 +1,19 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "UseGitHubConnection",
+      "Effect": "Allow",
+      "Action": [
+        "codeconnections:UseConnection",
+        "codestar-connections:UseConnection"
+      ],
+      "Resource": "arn:aws:codeconnections:us-east-1:042731792526:connection/c1ab8f5c-ede4-4aea-b4ed-e5239886c478",
+      "Condition": {
+        "StringEquals": {
+          "codeconnections:FullRepositoryId": "Waititu/aws-cicd-lab"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ReadCodePipelineArtifacts",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:GetObjectVersion"
+      ],
+      "Resource": "arn:aws:s3:::aws-cicd-lab-pipeline-artifacts-042731792526/*"
+    },
+    {
+      "Sid": "ReadArtifactBucketMetadata",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetBucketLocation",
+        "s3:GetBucketVersioning"
+      ],
+      "Resource": "arn:aws:s3:::aws-cicd-lab-pipeline-artifacts-042731792526"
+    },
+    {
+      "Sid": "WriteCodePipelineArtifacts",
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": "arn:aws:s3:::aws-cicd-lab-pipeline-artifacts-042731792526/*"
+    }
+  ]
+}

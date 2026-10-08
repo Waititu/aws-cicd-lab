@@ -1,0 +1,98 @@
+{
+  "pipeline": {
+    "name": "aws-cicd-lab",
+    "roleArn": "arn:aws:iam::042731792526:role/aws-cicd-lab-codepipeline-role",
+    "artifactStore": {
+      "type": "S3",
+      "location": "aws-cicd-lab-pipeline-artifacts-042731792526"
+    },
+    "stages": [
+      {
+        "name": "Source",
+        "actions": [
+          {
+            "name": "GitHubSource",
+            "actionTypeId": {
+              "category": "Source",
+              "owner": "AWS",
+              "provider": "CodeStarSourceConnection",
+              "version": "1"
+            },
+            "runOrder": 1,
+            "configuration": {
+              "ConnectionArn": "arn:aws:codeconnections:us-east-1:042731792526:connection/c1ab8f5c-ede4-4aea-b4ed-e5239886c478",
+              "FullRepositoryId": "Waititu/aws-cicd-lab",
+              "BranchName": "main",
+              "OutputArtifactFormat": "CODE_ZIP",
+              "DetectChanges": "true"
+            },
+            "outputArtifacts": [
+              {
+                "name": "SourceOutput"
+              }
+            ],
+            "inputArtifacts": []
+          }
+        ]
+      },
+      {
+        "name": "Build",
+        "actions": [
+          {
+            "name": "CodeBuild",
+            "actionTypeId": {
+              "category": "Build",
+              "owner": "AWS",
+              "provider": "CodeBuild",
+              "version": "1"
+            },
+            "runOrder": 1,
+            "configuration": {
+              "ProjectName": "aws-cicd-lab"
+            },
+            "inputArtifacts": [
+              {
+                "name": "SourceOutput"
+              }
+            ],
+            "outputArtifacts": [
+              {
+                "name": "BuildOutput"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "name": "Deploy",
+        "actions": [
+          {
+            "name": "ECSDeploy",
+            "actionTypeId": {
+              "category": "Deploy",
+              "owner": "AWS",
+              "provider": "ECS",
+              "version": "1"
+            },
+            "runOrder": 1,
+            "configuration": {
+              "ClusterName": "aws-cicd-lab",
+              "ServiceName": "aws-cicd-lab-service",
+              "FileName": "imagedefinitions.json",
+              "DeploymentTimeout": "15"
+            },
+            "inputArtifacts": [
+              {
+                "name": "BuildOutput"
+              }
+            ],
+            "outputArtifacts": []
+          }
+        ]
+      }
+    ],
+    "version": 1,
+    "executionMode": "SUPERSEDED",
+    "pipelineType": "V2"
+  }
+}

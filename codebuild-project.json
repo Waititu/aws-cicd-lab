@@ -1,0 +1,27 @@
+{
+  "name": "aws-cicd-lab",
+  "source": {
+    "type": "GITHUB",
+    "location": "https://github.com/Waititu/aws-cicd-lab.git",
+    "gitCloneDepth": 1,
+    "buildspec": "buildspec.yml"
+  },
+  "artifacts": {
+    "type": "NO_ARTIFACTS"
+  },
+  "environment": {
+    "type": "LINUX_CONTAINER",
+    "image": "aws/codebuild/standard:7.0",
+    "computeType": "BUILD_GENERAL1_SMALL",
+    "privilegedMode": false,
+    "environmentVariables": []
+  },
+  "serviceRole": "arn:aws:iam::042731792526:role/aws-cicd-lab-codebuild-role",
+  "timeoutInMinutes": 5,
+  "logsConfig": {
+    "cloudWatchLogs": {
+      "status": "ENABLED",
+      "groupName": "/aws/codebuild/aws-cicd-lab"
+    }
+  }
+}
