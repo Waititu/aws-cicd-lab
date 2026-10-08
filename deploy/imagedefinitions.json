@@ -1,0 +1,6 @@
+[
+  {
+    "name": "aws-cicd-lab",
+    "imageUri": "042731792526.dkr.ecr.us-east-1.amazonaws.com/aws-cicd-lab:IMAGE_TAG"
+  }
+]
